@@ -76,12 +76,12 @@ const Carousel = () => {
         ></img>
       </div>
       <div id='carousel'>
-        <Slider {...settings}>
+        <Slider className="car_el" {...settings}>
           {carousalData.map((data, index) => {
             return (
               <div key={index}>
                 <img style={{ margin: "auto" }} src={data.image} alt='' />
-                <center style={{ fontSize: "10px", fontWeight: "600" }}>
+                <center style={{ fontSize: "20px", fontWeight: "600", marginTop: "10px" }}>
                   {data.title}
                 </center>
               </div>
