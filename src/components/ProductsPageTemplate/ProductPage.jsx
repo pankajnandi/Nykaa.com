@@ -1,22 +1,24 @@
 // import Button from '@mui/material/Button';
 
-import "../stylesheets/card.css";
+import "../../stylesheets/ProductPage.css";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { Add2Cart } from './add2cartButton';
 import { SingleCard } from './SingleCard';
 import { ProductCarousel } from "./ProductCarousel";
 import { Sidebar } from "./Sidebar";
-import { store } from '../Redux/store';
+import { store } from '../../Redux/store';
 
 
 
-export const ProductPage = () => {
+export const ProductPage = (props) => {
 const [data,setData] = useState([]);
    
+const carouselData = props.data.carouselData;
 
-    async function getData(){
-        let url = "http://localhost:8080/products";
+    
+async function getData(){
+        let url = props.data.url;
         axios.get(url)
         .then(response =>{ 
             console.log(response.data)
@@ -25,7 +27,11 @@ const [data,setData] = useState([]);
         
     }
 
-    
+    const setDataSideBar = (d) => {
+        
+      setData([...d]);
+      console.log(data)
+    }
 
     useEffect(()=>{
         getData();
@@ -34,22 +40,20 @@ const [data,setData] = useState([]);
     return (
 
        
-        <div style={{width: "90%",                      
-                      margin:"auto",
-                      marginTop : "50px",}}>
+        <div className="productPage">
            
             <div>
-            <ProductCarousel/>
+            <ProductCarousel data = {carouselData}/>
             </div>
 
             <div>
             <h1 style={{textAlign:"center"}}>All Products</h1>
             </div>
 
-          <div style={{display : "flex"}}>
+          <div className="flex">
                 <div style={{width : "20%",
                             marginRight : "-50px"}}>
-                    <Sidebar/>
+                    <Sidebar data = { {setDataSideBar : setDataSideBar, "data":data }} />
                 </div>
               <div className="productCardList">
               
